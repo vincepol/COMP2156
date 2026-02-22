@@ -12,6 +12,7 @@ const App = () => {
 
   return (
     <div className="App">
+      <h1>Automatic Deployment Test</h1>
       <h1>Studen ID: Put Your Student ID</h1>
       <h1>Studen ID: Put Your Student Name</h1>
       <h1>Student Information System</h1>
