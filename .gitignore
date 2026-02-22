@@ -2,7 +2,7 @@
 node_modules
 
 # Build folder
-Build
+build
 
 # Optional: logs
 npm-debug.log*
