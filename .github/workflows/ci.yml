@@ -1,12 +1,9 @@
-name: Node.js CI
+name: Deploy React App COMP2156 DevOps Project CI
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
-    branches:
-      - main
+    branches: ["main"]
 
 jobs:
   build:
@@ -19,16 +16,29 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "22.x"
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: node_modules
 
       - name: Install dependencies
-        run: |
-          npm install
+        run: npm install
 
-      - name: Run tests
-        run: |
-          npm test
-      # Deploy to GitHub Pages
+      - name: Build the app
+        run: npm run build
+
+      - name: Run test
+        run: npm run test
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          path: ./build
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
